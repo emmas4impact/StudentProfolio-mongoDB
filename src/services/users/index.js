@@ -1,13 +1,17 @@
-const express = require("express")
+const express = require("express");
 const valid = require("validator");
-const StudentSchema = require("./schema")
+const q2m = require("query-to-mongo");
+const StudentSchema = require("./schema");
 
 
 const usersRouter = express.Router()
 
 usersRouter.get("/", async (req, res, next) => {
   try {
-    const users = await StudentSchema.find(req.query).sort({firstname: -1}).limit(0).skip(0)
+    const parsedQuery = q2m(req.query)
+    const users = await StudentSchema.find(parsedQuery.criteria, parsedQuery.options.fields)
+    .sort(parsedQuery.options.sort)
+    .limit(parsedQuery.options.limit).skip(parsedQuery.options.skip)
    
     res.send({TotalStudents: users.length, users})
   } catch (error) {
