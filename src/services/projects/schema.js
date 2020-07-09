@@ -2,6 +2,7 @@ const { Schema } = require("mongoose")
 const mongoose = require("mongoose")
 const valid = require("validator");
 
+
 const ProjectSchema = new Schema({
     name: {
       type: String,
@@ -17,12 +18,12 @@ const ProjectSchema = new Schema({
       required: true,
      
     },
-    LiveUurl: {
+    LiveUrl: {
         type: String,
         required: true,
     },
     studentId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId, ref: 'students',
        
     },
   
