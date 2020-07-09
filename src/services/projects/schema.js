@@ -22,10 +22,10 @@ const ProjectSchema = new Schema({
         type: String,
         required: true,
     },
-    studentId: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'students',
+    // studentId: {
+    //     type: mongoose.Schema.Types.ObjectId, ref: 'students',
        
-    },
+    // },
   
     
   })
