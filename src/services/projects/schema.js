@@ -3,24 +3,30 @@ const mongoose = require("mongoose")
 const valid = require("validator");
 
 const ProjectSchema = new Schema({
-    firstname: {
+    name: {
       type: String,
       required: true,
     },
-    surname: {
+    description: {
       type: String,
       required: true,
     },
     
-    dateOfBirth: {
-      type: Date,
-      
+   RepoUrl: {
+      type: String,
+      required: true,
      
     },
-    country: {
+    LiveUurl: {
+        type: String,
+        required: true,
+    },
+    studentId: {
         type: String,
        
     },
+  
+    
   })
 
   ProjectSchema.post("validate", function (error, doc, next) {
