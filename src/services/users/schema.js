@@ -39,6 +39,7 @@ const StudentSchema = new Schema({
         type: String,
        
     },
+    projects: Array,
   })
 
   StudentSchema.post("validate", function (error, doc, next) {
