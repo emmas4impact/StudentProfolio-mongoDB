@@ -1,6 +1,8 @@
 const express = require("express")
 const listEndpoints = require("express-list-endpoints")
-const usersRouter = require("./services/users")
+const usersRouter = require("./services/users");
+const projectRouter = require("./services/projects")
+
 const mongoose = require("mongoose")
 
 const {join}= require("path")
@@ -29,7 +31,7 @@ server.use(loggerMiddleware)
 
 // ROUTES
 server.use("/users", loggerMiddleware, usersRouter)
-
+server.use("/projects",loggerMiddleware, projectRouter )
 
 // ERROR HANDLERS
 
