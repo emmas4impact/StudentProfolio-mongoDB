@@ -39,7 +39,11 @@ const StudentSchema = new Schema({
         type: String,
        
     },
-    projects: Array,
+    projects: [{
+        
+        type: Schema.Types.ObjectId, ref: "projects",
+        
+    }],
   })
 
   StudentSchema.post("validate", function (error, doc, next) {
