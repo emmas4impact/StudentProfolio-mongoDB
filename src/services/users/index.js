@@ -1,14 +1,15 @@
 const express = require("express")
-
+const valid = require("validator");
 const StudentSchema = require("./schema")
-const { check, validationResult } = require("express-validator")
+
 
 const usersRouter = express.Router()
 
 usersRouter.get("/", async (req, res, next) => {
   try {
-    const users = await StudentSchema.find(req.query)
-    res.send(users)
+    const users = await StudentSchema.find(req.query).sort({firstname: -1}).limit(0).skip(0)
+   
+    res.send({TotalStudents: users.length, users})
   } catch (error) {
     next(error)
   }
@@ -33,6 +34,20 @@ usersRouter.get("/:id", async (req, res, next) => {
 
 usersRouter.post("/",async (req, res, next) => {
   try {
+   
+    const newUser = new StudentSchema(req.body)
+    const { _id } = await newUser.save()
+
+    res.status(201).send(_id)
+    
+    
+  } catch (error) {
+    next(error)
+  }
+})
+
+usersRouter.post("/checkEmail",async (req, res, next) => {
+  try {
    const emaiExist = await StudentSchema.findOne({"email": req.body.email}).then(function(result){
      return result !==null;
    })
@@ -49,7 +64,6 @@ usersRouter.post("/",async (req, res, next) => {
     next(error)
   }
 })
-
 usersRouter.put("/:id", async (req, res, next) => {
   try {
     const user = await StudentSchema.findByIdAndUpdate(req.params.id, req.body)
