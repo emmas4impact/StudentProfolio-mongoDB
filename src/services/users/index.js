@@ -2,6 +2,7 @@ const express = require("express");
 const valid = require("validator");
 const q2m = require("query-to-mongo");
 const StudentSchema = require("./schema");
+const studentModel = require("./schema");
 
 
 const usersRouter = express.Router()
@@ -35,7 +36,15 @@ usersRouter.get("/:id", async (req, res, next) => {
     next("While reading users list a problem occurred!")
   }
 })
-
+usersRouter.get("/:id/project", async (req, res, next) => {
+  try {
+   const projects = await studentModel.studentProject(req.params.id)
+   res.send(projects)
+  } catch (error) {
+    console.log(error)
+    next("While reading users list a problem occurred!")
+  }
+})
 usersRouter.post("/",async (req, res, next) => {
   try {
    
