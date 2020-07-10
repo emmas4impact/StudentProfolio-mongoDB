@@ -46,6 +46,11 @@ const StudentSchema = new Schema({
     }],
   })
 
+  StudentSchema.static("studentProject", async function(id){
+      const projects  = await studentModel.find({_id: id}).populate("projects");
+      return projects;
+  })
+
   StudentSchema.post("validate", function (error, doc, next) {
     if (error) {
       error.httpStatusCode = 400
